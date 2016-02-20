@@ -3,12 +3,14 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+  <h1>Welcome to Musician Finder!</h1>
 
-  {{> hello}}
+  <img src="../images/notes.png" alt="some notes" style="width:304px;height:228px;">
+
+  <a>Search for a musician!</a>
+
+  <form name="search">
+  	Artist Name: 
+        <input type="text" name="name"/>
+   </form>
 </body>
-
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
-</template>
