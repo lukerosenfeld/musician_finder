@@ -1,0 +1,54 @@
+<head>
+  <title>musician_page</title>
+</head>
+
+<body>
+  <center>
+    <h1>Search Results</h1>
+     
+     </script>
+
+    <a> You searched for: <script> var name = window.location.search.split('=')[1]; document.writeln(name);</script></a>
+<p></p>
+
+<button type="button" class="btn btn-default" onclick="loadDoc()">Get info on <script> var name = window.location.search.split('=')[1]; document.write(name);</script></button>
+
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest(); 
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      var obj = JSON.parse(xhttp.responseText);
+      document.writeln("<h1>", obj.artists.items[0].name, "</h1>");
+      document.writeln("<h2>Popularity score: ", obj.artists.items[0].popularity, "</h2>");
+      document.writeln("<h2>Number of followers: ", obj.artists.items[0].followers.total, "</h2>");
+      if (obj.artists.items[0].genres.length !== 0) {
+        document.writeln("<h2>Genres: ", obj.artists.items[0].genres, "</h2>");
+         }
+      document.writeln("<img src=", obj.artists.items[0].images[0].url, ">");
+
+      if (obj.artists.items.length > 0) {
+        document.writeln("Did you mean... ");
+        for (i = 1; i < obj.artists.items.length; i++) { 
+            document.writeln("<a href=/musician_page.html?name=", obj.artists.items[i].name.split(' ').join('+'), "> ", obj.artists.items[i].name, "</a>", ", ");
+            }
+        }
+
+
+    }
+  };
+  var name = window.location.search.split('=')[1];
+  var urlbase = "https://api.spotify.com/v1/search?type=artist&q=";
+  var url = urlbase.concat(name);
+
+  xhttp.open("GET", url, true);
+  var json = xhttp.send();
+
+  
+}
+</script>
+
+
+   </center>
+</body>
+
