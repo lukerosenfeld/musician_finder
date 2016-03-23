@@ -15,7 +15,7 @@
 
 <script>
 function loadDoc() {
-  var xhttp = new XMLHttpRequest(); 
+  var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       var obj = JSON.parse(xhttp.responseText);
@@ -28,7 +28,7 @@ function loadDoc() {
       document.writeln("<img src=", obj.artists.items[0].images[0].url, ">");
 
       if (obj.artists.items.length > 0) {
-        document.writeln("Did you mean... ");
+        document.writeln("Did you mean... "); //Put this in an if statement, only if the list is nonzero show it
         for (i = 1; i < obj.artists.items.length; i++) { 
             document.writeln("<a href=/musician_page.html?name=", obj.artists.items[i].name.split(' ').join('+'), "> ", obj.artists.items[i].name, "</a>", ", ");
             }
@@ -42,7 +42,7 @@ function loadDoc() {
   var url = urlbase.concat(name);
 
   xhttp.open("GET", url, true);
-  var json = xhttp.send();
+  xhttp.send();
 
   
 }
