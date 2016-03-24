@@ -11,7 +11,13 @@
     <a> You searched for: <script> var name = window.location.search.split('=')[1]; document.writeln(name);</script></a>
 <p></p>
 
+
 <button type="button" class="btn btn-default" onclick="loadDoc()">Get info on <script> var name = window.location.search.split('=')[1]; document.write(name);</script></button>
+
+<br>
+<br>
+
+<button type="button" class="btn btn-default" onclick="loadDoc2()">Read recent blog reviews on <script> var name = window.location.search.split('=')[1]; document.write(name);</script></button>
 
 <script>
 function loadDoc() {
@@ -43,9 +49,31 @@ function loadDoc() {
 
   xhttp.open("GET", url, true);
   xhttp.send();
-
-  
 }
+
+function loadDoc2() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      var obj = JSON.parse(xhttp.responseText);
+      for (i = 0; i < obj.response.blogs.length; i++) { 
+        document.write("<a href =", obj.response.blogs[i].url, " target='_blank'>",obj.response.blogs[i].name, "</a><br>");
+        document.write("<a>Date Posted: ", obj.response.blogs[i].date_posted.substring(0,10), "</a><br>");
+        document.write("<a>Article summary: ", obj.response.blogs[i].summary, "</a><br>");
+        
+        document.writeln("<br>");
+      }
+    }
+  };
+  var name = window.location.search.split('=')[1];
+  var urlbase = "http://developer.echonest.com/api/v4/artist/blogs?api_key=E5JTAOS24TZZIB8QD&format=json&name=";
+  var url = urlbase.concat(name);
+
+  xhttp.open("GET", url, true);
+  xhttp.send();
+}
+
+
 </script>
 
 
