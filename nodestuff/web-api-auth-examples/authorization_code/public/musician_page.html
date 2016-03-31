@@ -65,8 +65,19 @@ function loadDoc2() {
       }
     }
   };
+
+    readStringFromFileAtPath = function(pathOfFileToReadFrom) { //used to get the API key for EchoNest
+        var request = new XMLHttpRequest();
+        request.open("GET", pathOfFileToReadFrom, false);
+        request.send(null);
+        var returnValue = request.responseText;
+
+        return returnValue;
+    }
+
+  var api_key = readStringFromFileAtPath ("api_key.txt" );
   var name = window.location.search.split('=')[1];
-  var urlbase = "http://developer.echonest.com/api/v4/artist/blogs?api_key=E5JTAOS24TZZIB8QD&format=json&name=";
+  var urlbase = "http://developer.echonest.com/api/v4/artist/blogs?api_key=".concat(api_key).concat("&format=json&name=");
   var url = urlbase.concat(name);
 
   xhttp.open("GET", url, true);
